@@ -1,0 +1,60 @@
+{
+  "rewrites": [
+    {
+      "source": "/conserto-lava-e-seca",
+      "destination": "/conserto-lava-e-seca.html"
+    },
+    {
+      "source": "/conserto-lava-e-seca/",
+      "destination": "/conserto-lava-e-seca.html"
+    },
+    {
+      "source": "/conserto",
+      "destination": "/conserto-lava-e-seca.html"
+    },
+    {
+      "source": "/conserto-lavadora",
+      "destination": "/conserto-lava-e-seca.html"
+    },
+    {
+      "source": "/reparo",
+      "destination": "/conserto-lava-e-seca.html"
+    },
+    {
+      "source": "/instalacao-lava-e-seca",
+      "destination": "/instalacao-lava-e-seca.html"
+    },
+    {
+      "source": "/instalacao-lava-e-seca/",
+      "destination": "/instalacao-lava-e-seca.html"
+    },
+    {
+      "source": "/instalacao",
+      "destination": "/instalacao-lava-e-seca.html"
+    },
+    {
+      "source": "/instalacao-lavadora",
+      "destination": "/instalacao-lava-e-seca.html"
+    },
+    {
+      "source": "/higienizacao-lava-e-seca",
+      "destination": "/higienizacao-lava-e-seca.html"
+    },
+    {
+      "source": "/higienizacao-lava-e-seca/",
+      "destination": "/higienizacao-lava-e-seca.html"
+    },
+    {
+      "source": "/higienizacao",
+      "destination": "/higienizacao-lava-e-seca.html"
+    },
+    {
+      "source": "/limpeza",
+      "destination": "/higienizacao-lava-e-seca.html"
+    },
+    {
+      "source": "/limpeza-lava-e-seca",
+      "destination": "/higienizacao-lava-e-seca.html"
+    }
+  ]
+}
