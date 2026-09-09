@@ -93,7 +93,7 @@ export const InstalacaoLavaESeca = () => {
           name="keywords"
           content="instalacao lava e seca praia grande, instalar maquina de lavar santos, trava de transporte lava e seca, nivelamento lava e seca guaruja"
         />
-        <link rel="canonical" href="https://www.prolavlitoral.com.br/instalacao-lava-e-seca" />
+        <link rel="canonical" href="https://www.prolavservice.com.br/instalacao-lava-e-seca" />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>

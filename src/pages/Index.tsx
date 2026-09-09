@@ -19,7 +19,7 @@ export const Index = () => {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     "name": "ProLav Litoral — Assistência Técnica de Lava e Seca",
-    "image": "https://www.prolavlitoral.com.br/favicon.svg",
+    "image": "https://www.prolavservice.com.br/favicon.svg",
     "telephone": "+5513992095947",
     "address": {
       "@type": "PostalAddress",
@@ -43,7 +43,7 @@ export const Index = () => {
           name="keywords"
           content="conserto lava e seca praia grande, tecnico lava e seca santos, conserto maquina de lavar guaruja, instalacao lava e seca bertioga, higienizacao maquina de lavar"
         />
-        <link rel="canonical" href="https://www.prolavlitoral.com.br/" />
+        <link rel="canonical" href="https://www.prolavservice.com.br/" />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>

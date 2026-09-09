@@ -105,7 +105,7 @@ export const ConsertoLavaESeca = () => {
           name="keywords"
           content="conserto lava e seca praia grande, conserto lavadora santos, erro DE samsung, erro OE lg, barulho rolamento lava e seca"
         />
-        <link rel="canonical" href="https://www.prolavlitoral.com.br/conserto-lava-e-seca" />
+        <link rel="canonical" href="https://www.prolavservice.com.br/conserto-lava-e-seca" />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>

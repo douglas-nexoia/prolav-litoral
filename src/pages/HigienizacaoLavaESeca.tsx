@@ -93,7 +93,7 @@ export const HigienizacaoLavaESeca = () => {
           name="keywords"
           content="higienizacao lava e seca praia grande, limpar borracha lava e seca santos, tirar cheiro de mofo lavadora, duto de secagem fiapos guaruja"
         />
-        <link rel="canonical" href="https://www.prolavlitoral.com.br/higienizacao-lava-e-seca" />
+        <link rel="canonical" href="https://www.prolavservice.com.br/higienizacao-lava-e-seca" />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>
