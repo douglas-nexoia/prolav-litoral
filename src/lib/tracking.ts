@@ -6,9 +6,9 @@ declare global {
   }
 }
 
-export const GOOGLE_ADS_ID = "AW-XXXXXXXXXXX";
-export const GOOGLE_ADS_WHATSAPP_CONVERSION = "AW-XXXXXXXXXXX/YYYYYYYYYYYY";
-export const GOOGLE_ADS_PHONE_CONVERSION = "AW-XXXXXXXXXXX/ZZZZZZZZZZZZ";
+export const GOOGLE_ADS_ID = "AW-18439155671";
+export const GOOGLE_ADS_WHATSAPP_CONVERSION = "AW-18439155671/2_aeCKmL2fEcENffvNhE";
+export const GOOGLE_ADS_PHONE_CONVERSION = "AW-18439155671/ENbgCNuQ2fEcENffvNhE";
 
 export const trackWhatsAppConversion = (callback?: () => void) => {
   try {
