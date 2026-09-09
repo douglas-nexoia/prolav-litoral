@@ -54,7 +54,7 @@ export const Services = () => {
               01 — Serviços Especializados
             </div>
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em] text-[#0F172A]">
-              Soluções completas para sua lavanderia
+              Conserto, instalação e higienização para sua lava e seca
             </h2>
           </div>
           <p className="font-sans text-sm sm:text-base text-[#64748B] max-w-[360px] leading-relaxed">
