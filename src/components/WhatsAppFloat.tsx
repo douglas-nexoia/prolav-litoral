@@ -1,14 +1,16 @@
 import { MessageCircle } from "lucide-react";
-import { trackWhatsAppConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, getWhatsAppUrl, ServiceType } from "@/lib/tracking";
 
 interface WhatsAppFloatProps {
   whatsappMessage?: string;
+  service?: ServiceType;
 }
 
 export const WhatsAppFloat = ({
-  whatsappMessage = "Olá! Vim pelo site da ProLav Litoral e gostaria de um atendimento.",
+  whatsappMessage,
+  service = "home",
 }: WhatsAppFloatProps) => {
-  const whatsappUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = getWhatsAppUrl(service, whatsappMessage);
 
   return (
     <div className="fixed bottom-5 right-5 z-50">

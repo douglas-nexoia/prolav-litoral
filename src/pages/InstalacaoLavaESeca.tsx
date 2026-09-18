@@ -11,7 +11,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { ShieldAlert, Compass, Droplets, CheckCircle2, ArrowRight, Gauge, Wrench } from "lucide-react";
-import { trackWhatsAppConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, getWhatsAppUrl } from "@/lib/tracking";
 
 const installationSteps = [
   {
@@ -60,7 +60,6 @@ const installationFaqs = [
 ];
 
 export const InstalacaoLavaESeca = () => {
-  const WHATSAPP_INSTALACAO = "Olá, gostaria de agendar a instalação da minha máquina de lavar/lava e seca.";
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const schemaData = {
@@ -100,7 +99,7 @@ export const InstalacaoLavaESeca = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[#081220] text-white">
-        <Header currentRoute="/instalacao-lava-e-seca" whatsappMessage={WHATSAPP_INSTALACAO} />
+        <Header currentRoute="/instalacao-lava-e-seca" service="instalacao" />
 
         <main>
           {/* Hero Section for Installation */}
@@ -115,7 +114,7 @@ export const InstalacaoLavaESeca = () => {
               </>
             }
             description="Comprou aparelho novo ou acabou de se mudar? Evite vibrações perigosas e perda de garantia de fábrica. Remoção correta de travas, nivelamento anti-ruído e conexões seguras."
-            whatsappMessage={WHATSAPP_INSTALACAO}
+            service="instalacao"
             ctaText="Agendar Instalação Segura"
           />
 
@@ -139,7 +138,7 @@ export const InstalacaoLavaESeca = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {installationSteps.map((step, idx) => {
                   const Icon = step.icon;
-                  const waRefUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(`Olá! Preciso de instalação profissional para minha máquina: ${step.title}`)}`;
+                  const waRefUrl = getWhatsAppUrl("instalacao", `Olá! Vim pelo site, gostaria de um atendimento para instalação de Lava e Seca (${step.title}).`);
 
                   return (
                     <div
@@ -240,13 +239,13 @@ export const InstalacaoLavaESeca = () => {
           </section>
 
           <Contact
-            whatsappMessage={WHATSAPP_INSTALACAO}
+            service="instalacao"
             ctaText="Agendar Instalação no WhatsApp"
           />
         </main>
 
         <Footer />
-        <WhatsAppFloat whatsappMessage={WHATSAPP_INSTALACAO} />
+        <WhatsAppFloat service="instalacao" />
       </div>
     </>
   );

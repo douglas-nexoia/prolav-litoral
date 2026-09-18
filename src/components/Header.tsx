@@ -1,16 +1,18 @@
 import { Phone } from "lucide-react";
-import { trackWhatsAppConversion, trackPhoneConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, trackPhoneConversion, getWhatsAppUrl, ServiceType } from "@/lib/tracking";
 
 interface HeaderProps {
   currentRoute?: string;
   whatsappMessage?: string;
+  service?: ServiceType;
 }
 
 const Header = ({
   currentRoute = "/",
-  whatsappMessage = "Olá! Vim pelo site da ProLav Litoral e gostaria de um atendimento.",
+  whatsappMessage,
+  service = "home",
 }: HeaderProps) => {
-  const whatsappUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = getWhatsAppUrl(service, whatsappMessage);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#081220]/94 backdrop-blur-[14px] border-b border-white/10 transition-all duration-200">

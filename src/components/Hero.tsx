@@ -1,6 +1,6 @@
 import React from "react";
 import { Phone, ArrowRight, ShieldCheck, Clock, Home } from "lucide-react";
-import { trackWhatsAppConversion, trackPhoneConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, trackPhoneConversion, getWhatsAppUrl, ServiceType } from "@/lib/tracking";
 import GoldenGuaranteeBadge from "./GoldenGuaranteeBadge";
 
 interface HeroProps {
@@ -8,7 +8,8 @@ interface HeroProps {
   badgeCredential?: string;
   title: React.ReactNode;
   description: string;
-  whatsappMessage: string;
+  whatsappMessage?: string;
+  service?: ServiceType;
   ctaText?: string;
 }
 
@@ -18,9 +19,10 @@ const Hero = ({
   title,
   description,
   whatsappMessage,
+  service = "home",
   ctaText = "Chamar Técnico Agora no WhatsApp",
 }: HeroProps) => {
-  const whatsappUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = getWhatsAppUrl(service, whatsappMessage);
 
   return (
     <section className="relative min-h-[600px] lg:min-h-[640px] flex items-center bg-[#081220] overflow-hidden border-b border-white/10">

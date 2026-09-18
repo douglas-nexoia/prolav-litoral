@@ -11,7 +11,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { AlertTriangle, Droplets, Volume2, Lock, ArrowRight, Wrench, Zap, CheckCircle2 } from "lucide-react";
-import { trackWhatsAppConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, getWhatsAppUrl } from "@/lib/tracking";
 
 const repairProblems = [
   {
@@ -72,7 +72,6 @@ const repairFaqs = [
 ];
 
 export const ConsertoLavaESeca = () => {
-  const WHATSAPP_CONSERTO = "Olá, minha lava e seca/máquina está com defeito e preciso de conserto no mesmo dia.";
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const schemaData = {
@@ -112,7 +111,7 @@ export const ConsertoLavaESeca = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[#081220] text-white">
-        <Header currentRoute="/conserto-lava-e-seca" whatsappMessage={WHATSAPP_CONSERTO} />
+        <Header currentRoute="/conserto-lava-e-seca" service="conserto" />
 
         <main>
           {/* Hero Section for Repair */}
@@ -127,7 +126,7 @@ export const ConsertoLavaESeca = () => {
               </>
             }
             description="Não perca roupas molhadas nem acumule pilhas de lavanderia. Diagnóstico preciso no local, técnicos especializados multimarcas e garantia formal de 365 dias na OS."
-            whatsappMessage={WHATSAPP_CONSERTO}
+            service="conserto"
             ctaText="Chamar Técnico Agora no WhatsApp"
           />
 
@@ -151,7 +150,7 @@ export const ConsertoLavaESeca = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {repairProblems.map((p, idx) => {
                   const Icon = p.icon;
-                  const waRefUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(`Olá! Minha lava e seca está com o seguinte defeito: ${p.title}. Gostaria de um conserto no mesmo dia.`)}`;
+                  const waRefUrl = getWhatsAppUrl("conserto", `Olá! Vim pelo site, gostaria de um atendimento para conserto de Lava e Seca (${p.title}).`);
 
                   return (
                     <div
@@ -252,13 +251,13 @@ export const ConsertoLavaESeca = () => {
           </section>
 
           <Contact
-            whatsappMessage={WHATSAPP_CONSERTO}
+            service="conserto"
             ctaText="Chamar Técnico no WhatsApp Agora"
           />
         </main>
 
         <Footer />
-        <WhatsAppFloat whatsappMessage={WHATSAPP_CONSERTO} />
+        <WhatsAppFloat service="conserto" />
       </div>
     </>
   );

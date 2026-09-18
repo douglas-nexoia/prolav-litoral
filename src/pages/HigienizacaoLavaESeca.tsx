@@ -11,7 +11,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { Sparkles, Wind, ShieldCheck, Flame, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
-import { trackWhatsAppConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, getWhatsAppUrl } from "@/lib/tracking";
 
 const sanitizationBenefits = [
   {
@@ -60,7 +60,6 @@ const sanitizationFaqs = [
 ];
 
 export const HigienizacaoLavaESeca = () => {
-  const WHATSAPP_HIGIENIZACAO = "Olá, gostaria de um orçamento para higienização profunda da minha máquina.";
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const schemaData = {
@@ -100,7 +99,7 @@ export const HigienizacaoLavaESeca = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[#081220] text-white">
-        <Header currentRoute="/higienizacao-lava-e-seca" whatsappMessage={WHATSAPP_HIGIENIZACAO} />
+        <Header currentRoute="/higienizacao-lava-e-seca" service="higienizacao" />
 
         <main>
           {/* Hero Section for Sanitization */}
@@ -115,7 +114,7 @@ export const HigienizacaoLavaESeca = () => {
               </>
             }
             description="Roupas saindo com cheiro desagradável ou borracha com crosta preta? Descontaminação profunda no local com bactericida hospitalar, limpeza de dutos e recuperação da secagem rápida."
-            whatsappMessage={WHATSAPP_HIGIENIZACAO}
+            service="higienizacao"
             ctaText="Solicitar Higienização Completa"
           />
 
@@ -139,7 +138,7 @@ export const HigienizacaoLavaESeca = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {sanitizationBenefits.map((item, idx) => {
                   const Icon = item.icon;
-                  const waRefUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(`Olá! Gostaria de agendar a higienização profunda para resolver: ${item.title}`)}`;
+                  const waRefUrl = getWhatsAppUrl("higienizacao", `Olá! Vim pelo site, gostaria de um atendimento para higienização de Lava e Seca (${item.title}).`);
 
                   return (
                     <div
@@ -240,13 +239,13 @@ export const HigienizacaoLavaESeca = () => {
           </section>
 
           <Contact
-            whatsappMessage={WHATSAPP_HIGIENIZACAO}
+            service="higienizacao"
             ctaText="Solicitar Higienização no WhatsApp"
           />
         </main>
 
         <Footer />
-        <WhatsAppFloat whatsappMessage={WHATSAPP_HIGIENIZACAO} />
+        <WhatsAppFloat service="higienizacao" />
       </div>
     </>
   );

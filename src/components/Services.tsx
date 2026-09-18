@@ -1,5 +1,5 @@
 import { ArrowRight, Wrench, ShieldCheck, Sparkles } from "lucide-react";
-import { trackWhatsAppConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, getWhatsAppUrl, ServiceType } from "@/lib/tracking";
 
 const services = [
   {
@@ -65,7 +65,7 @@ export const Services = () => {
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {services.map((s) => {
-            const waUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(s.whatsappRef)}`;
+            const waUrl = getWhatsAppUrl(s.id as ServiceType);
             const Icon = s.icon;
 
             return (

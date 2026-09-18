@@ -13,8 +13,6 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 export const Index = () => {
-  const WHATSAPP_HOME = "Olá! Vim pelo site da ProLav Litoral e gostaria de um atendimento.";
-
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
@@ -50,7 +48,7 @@ export const Index = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[#081220] text-white">
-        <Header currentRoute="/" whatsappMessage={WHATSAPP_HOME} />
+        <Header currentRoute="/" service="home" />
 
         <main>
           {/* Hero Section */}
@@ -65,7 +63,7 @@ export const Index = () => {
               </>
             }
             description="Atendimento técnico especializado a domicílio na Baixada Santista. Reparo de erros no painel, bomba, rolamento e placas com peças originais e técnicos em rota hoje."
-            whatsappMessage={WHATSAPP_HOME}
+            service="home"
             ctaText="Chamar Técnico no WhatsApp"
           />
 
@@ -95,11 +93,11 @@ export const Index = () => {
           <FAQ />
 
           {/* 07 - Contato */}
-          <Contact whatsappMessage={WHATSAPP_HOME} />
+          <Contact service="home" />
         </main>
 
         <Footer />
-        <WhatsAppFloat whatsappMessage={WHATSAPP_HOME} />
+        <WhatsAppFloat service="home" />
       </div>
     </>
   );

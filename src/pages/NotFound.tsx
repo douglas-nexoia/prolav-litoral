@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getWhatsAppUrl, trackWhatsAppConversion } from "@/lib/tracking";
 
 export const NotFound = () => {
   return (
@@ -36,7 +37,8 @@ export const NotFound = () => {
               </a>
 
               <a
-                href="https://wa.me/5513992095947?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20ProLav%20Litoral%20e%20gostaria%20de%20um%20atendimento."
+                href={getWhatsAppUrl("home")}
+                onClick={trackWhatsAppConversion}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#22C55E] hover:bg-[#1eb354] text-[#052611] font-heading font-bold text-sm px-6 py-3 rounded-lg shadow-md transition-colors"

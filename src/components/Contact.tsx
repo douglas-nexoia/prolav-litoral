@@ -1,16 +1,18 @@
 import { Phone, ArrowRight, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
-import { trackWhatsAppConversion, trackPhoneConversion } from "@/lib/tracking";
+import { trackWhatsAppConversion, trackPhoneConversion, getWhatsAppUrl, ServiceType } from "@/lib/tracking";
 
 interface ContactProps {
   whatsappMessage?: string;
+  service?: ServiceType;
   ctaText?: string;
 }
 
 export const Contact = ({
-  whatsappMessage = "Olá! Vim pelo site da ProLav Litoral e gostaria de um atendimento.",
+  whatsappMessage,
+  service = "home",
   ctaText = "Falar com Técnico no WhatsApp",
 }: ContactProps) => {
-  const whatsappUrl = `https://wa.me/5513992095947?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = getWhatsAppUrl(service, whatsappMessage);
 
   return (
     <section id="contato" className="bg-[#060D17] text-white py-16 sm:py-24 border-t border-white/10 relative overflow-hidden">
