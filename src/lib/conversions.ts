@@ -180,20 +180,30 @@ export function registrarCliqueAds(): void {
   };
 
   if (ENDPOINT_REGISTRO_CLIQUE) {
-    try {
-      const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
-      if (navigator.sendBeacon) {
+    const payloadStr = JSON.stringify(payload);
+
+    // 1. sendBeacon com text/plain (CORS safelisted: dispara imediatamente sem preflight OPTIONS descartado em mobile)
+    if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+      try {
+        const blob = new Blob([payloadStr], { type: "text/plain" });
         navigator.sendBeacon(ENDPOINT_REGISTRO_CLIQUE, blob);
-      } else {
+      } catch {
+        // fallback para fetch caso sendBeacon lance exceção
+      }
+    }
+
+    // 2. fetch com keepalive: true (canal assíncrono redundante padrão W3C que sobrevive ao fechamento da página)
+    if (typeof fetch !== "undefined") {
+      try {
         fetch(ENDPOINT_REGISTRO_CLIQUE, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: payloadStr,
           keepalive: true,
         }).catch(() => {});
+      } catch {
+        // Ignora erro para nunca travar a navegação do usuário
       }
-    } catch {
-      // Ignora erro de rede para nunca travar a navegação do usuário
     }
   }
 
