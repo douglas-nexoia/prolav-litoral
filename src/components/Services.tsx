@@ -123,7 +123,10 @@ export const Services = () => {
                   <div className="pt-4 border-t border-[#E2E8F0] flex items-center justify-between gap-3">
                     <a
                       href={waUrl}
-                      onClick={trackWhatsAppConversion}
+                      onClick={(e) => {
+                        e.currentTarget.href = getWhatsAppUrl(s.id as ServiceType);
+                        trackWhatsAppConversion();
+                      }}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-sans font-bold text-sm sm:text-[15px] text-[#0284C7] hover:text-[#0369A1] inline-flex items-center gap-1.5 transition-colors"

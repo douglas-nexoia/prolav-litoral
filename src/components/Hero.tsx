@@ -80,7 +80,10 @@ const Hero = ({
               {/* WhatsApp Button */}
               <a
                 href={whatsappUrl}
-                onClick={trackWhatsAppConversion}
+                onClick={(e) => {
+                  e.currentTarget.href = getWhatsAppUrl(service, whatsappMessage);
+                  trackWhatsAppConversion();
+                }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2.5 bg-[#22C55E] hover:bg-[#1eb354] text-[#052611] font-heading font-bold text-base sm:text-[17px] px-6 py-3.5 rounded-lg shadow-lg hover:shadow-[#22C55E]/20 transition-all duration-150 active:scale-95 text-center"

@@ -16,7 +16,10 @@ export const WhatsAppFloat = ({
     <div className="fixed bottom-5 right-5 z-50">
       <a
         href={whatsappUrl}
-        onClick={trackWhatsAppConversion}
+        onClick={(e) => {
+          e.currentTarget.href = getWhatsAppUrl(service, whatsappMessage);
+          trackWhatsAppConversion();
+        }}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar no WhatsApp"

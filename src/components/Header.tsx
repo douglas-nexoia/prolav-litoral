@@ -88,7 +88,10 @@ const Header = ({
           {/* Primary WhatsApp CTA Button */}
           <a
             href={whatsappUrl}
-            onClick={trackWhatsAppConversion}
+            onClick={(e) => {
+              e.currentTarget.href = getWhatsAppUrl(service, whatsappMessage);
+              trackWhatsAppConversion();
+            }}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#22C55E] hover:bg-[#1eb354] text-[#052611] font-sans font-bold text-sm sm:text-base px-4 py-2 sm:px-5 sm:py-2.5 rounded-md shadow-sm transition-all duration-150 active:scale-95"

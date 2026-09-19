@@ -166,7 +166,10 @@ export const HigienizacaoLavaESeca = () => {
 
                       <a
                         href={waRefUrl}
-                        onClick={trackWhatsAppConversion}
+                        onClick={(e) => {
+                          e.currentTarget.href = getWhatsAppUrl("higienizacao", `Olá! Vim pelo site, gostaria de um atendimento para higienização de Lava e Seca (${item.title}).`);
+                          trackWhatsAppConversion();
+                        }}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 font-sans font-bold text-sm text-[#0284C7] hover:text-[#0369A1] pt-4 border-t border-[#E2E8F0]"

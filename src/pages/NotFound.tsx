@@ -38,7 +38,10 @@ export const NotFound = () => {
 
               <a
                 href={getWhatsAppUrl("home")}
-                onClick={trackWhatsAppConversion}
+                onClick={(e) => {
+                  e.currentTarget.href = getWhatsAppUrl("home");
+                  trackWhatsAppConversion();
+                }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#22C55E] hover:bg-[#1eb354] text-[#052611] font-heading font-bold text-sm px-6 py-3 rounded-lg shadow-md transition-colors"

@@ -178,7 +178,10 @@ export const ConsertoLavaESeca = () => {
 
                       <a
                         href={waRefUrl}
-                        onClick={trackWhatsAppConversion}
+                        onClick={(e) => {
+                          e.currentTarget.href = getWhatsAppUrl("conserto", `Olá! Vim pelo site, gostaria de um atendimento para conserto de Lava e Seca (${p.title}).`);
+                          trackWhatsAppConversion();
+                        }}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 font-sans font-bold text-sm text-[#0284C7] hover:text-[#0369A1] pt-4 border-t border-[#E2E8F0]"

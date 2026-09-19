@@ -72,13 +72,13 @@ export function generateProtocolCode(): string {
     const index = Math.floor(Math.random() * CHARSET.length);
     randomPart += CHARSET[index];
   }
-  return `#PL-${randomPart}`;
+  return randomPart;
 }
 
 const STORAGE_KEY = "prolav_traffic_attr";
 
 /**
- * Obtém ou inicializa a atribuição de tráfego (GCLID, WBRAID, GBRAID e Código #PL-XXXX).
+ * Obtém ou inicializa a atribuição de tráfego (GCLID, WBRAID, GBRAID e Código de 4 caracteres).
  * Persiste em sessionStorage e cookies (30 dias) para retenção entre navegações pelas páginas do site.
  */
 export function getTrafficAttribution(): TrafficAttribution | null {
@@ -116,8 +116,9 @@ export function getTrafficAttribution(): TrafficAttribution | null {
     return null;
   }
 
-  // Reutiliza o código existente da sessão para manter idempotência, ou gera um novo
-  const codigo = stored?.codigo || generateProtocolCode();
+  // Reutiliza o código existente da sessão para manter idempotência (limpando qualquer prefixo prévio), ou gera um novo de 4 chars
+  const rawCodigo = stored?.codigo || generateProtocolCode();
+  const codigo = rawCodigo.replace(/^#[A-Z]+-/, "");
 
   const attribution: TrafficAttribution = {
     codigo,
@@ -150,7 +151,8 @@ export function getWhatsAppUrl(service: ServiceType = "home", customText?: strin
 
   let finalText = baseText;
   if (attribution?.codigo) {
-    finalText = `${baseText} Protocolo: ${attribution.codigo}`;
+    const cleanCode = attribution.codigo.replace(/^#[A-Z]+-/, "");
+    finalText = `${baseText} Protocolo: #PL-${cleanCode}`;
   }
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(finalText)}`;
@@ -158,7 +160,7 @@ export function getWhatsAppUrl(service: ServiceType = "home", customText?: strin
 
 /**
  * Registra o clique do Google Ads no backend de forma síncrona/fire-and-forget
- * utilizando sendBeacon (com fallback para fetch keepalive).
+ * utilizando sendBeacon com string simples (sem preflight OPTIONS) e fallback fetch keepalive.
  */
 export function registrarCliqueAds(): void {
   if (typeof window === "undefined") return;
@@ -168,9 +170,12 @@ export function registrarCliqueAds(): void {
     return;
   }
 
+  // O endpoint do Supabase exige EXATAMENTE os 4 caracteres alfanuméricos, sem '#' e sem prefixo
+  const cleanCode = attribution.codigo.replace(/^#[A-Z]+-/, "");
+
   const payload = {
     empresa: "PL",
-    codigo: attribution.codigo,
+    codigo: cleanCode,
     gclid: attribution.gclid,
     wbraid: attribution.wbraid,
     gbraid: attribution.gbraid,
@@ -181,23 +186,23 @@ export function registrarCliqueAds(): void {
 
   if (ENDPOINT_REGISTRO_CLIQUE) {
     const payloadStr = JSON.stringify(payload);
+    let sent = false;
 
-    // 1. sendBeacon com text/plain (CORS safelisted: dispara imediatamente sem preflight OPTIONS descartado em mobile)
+    // 1. sendBeacon com string direta: enviado como text/plain sem preflight OPTIONS
     if (typeof navigator !== "undefined" && navigator.sendBeacon) {
       try {
-        const blob = new Blob([payloadStr], { type: "text/plain" });
-        navigator.sendBeacon(ENDPOINT_REGISTRO_CLIQUE, blob);
+        sent = navigator.sendBeacon(ENDPOINT_REGISTRO_CLIQUE, payloadStr);
       } catch {
-        // fallback para fetch caso sendBeacon lance exceção
+        sent = false;
       }
     }
 
-    // 2. fetch com keepalive: true (canal assíncrono redundante padrão W3C que sobrevive ao fechamento da página)
-    if (typeof fetch !== "undefined") {
+    // 2. fetch simples com keepalive: true e Content-Type text/plain (sem headers customizados que gerem OPTIONS)
+    if (!sent && typeof fetch !== "undefined") {
       try {
         fetch(ENDPOINT_REGISTRO_CLIQUE, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
           body: payloadStr,
           keepalive: true,
         }).catch(() => {});
