@@ -1,91 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <!-- Google tag (gtag.js) - PROLAV-SERVICE -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18439155671"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-18439155671');
-    </script>
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 — Página Não Encontrada | ProLav Litoral</title>
-    <meta name="description" content="Página não encontrada — ProLav Litoral" />
-    <meta name="robots" content="noindex, follow" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Public+Sans:wght@400;600&display=swap" />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #081220;
-        color: #ffffff;
-        font-family: 'Public Sans', sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        text-align: center;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Página não encontrada. Fale com a ProLav Litoral pelo WhatsApp.">
+  <title>Página não encontrada | ProLav Litoral</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18439155671');
+    function loadGtag(){
+      if (window._gtagLoaded) return;
+      window._gtagLoaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18439155671';
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    window.loadGtag = loadGtag;
+    function scheduleGtag(){
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGtag, { timeout: 2500 });
+      } else {
+        setTimeout(loadGtag, 2000);
       }
-      .box {
-        max-width: 520px;
-        padding: 2rem;
-      }
-      .code {
-        font-size: 5rem;
-        font-weight: 800;
-        color: #F59E0B;
-        font-family: monospace;
-        margin-bottom: 1rem;
-      }
-      h1 {
-        font-family: 'Archivo', sans-serif;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-      }
-      p {
-        color: rgba(255,255,255,0.7);
-        line-height: 1.6;
-        margin-bottom: 2rem;
-      }
-      .btn {
-        display: inline-block;
-        padding: 0.8rem 1.8rem;
-        background-color: #22C55E;
-        color: #052611;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: opacity 0.2s;
-      }
-      .btn:hover {
-        opacity: 0.9;
-      }
-      .btn-outline {
-        display: inline-block;
-        padding: 0.8rem 1.8rem;
-        background: transparent;
-        color: #ffffff;
-        border: 1px solid rgba(255,255,255,0.2);
-        font-weight: 600;
-        text-decoration: none;
-        border-radius: 8px;
-        margin-right: 0.8rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <div class="code">404</div>
-      <h1>Página Não Encontrada</h1>
-      <p>O endereço que você tentou acessar não existe ou mudou de lugar. Volte à página inicial ou converse diretamente com o nosso técnico da ProLav Litoral.</p>
-      <div>
-        <a href="/" class="btn-outline">Voltar ao Início</a>
-        <a href="https://wa.me/5513992095947?text=Ol%C3%A1!%20Vim%20pelo%20site%2C%20gostaria%20de%20um%20atendimento." target="_blank" onclick="if(typeof gtag==='function'){gtag('event','conversion',{'send_to':'AW-18439155671/2_aeCKmL2fEcENffvNhE'});}" class="btn">Chamar no WhatsApp</a>
-      </div>
-    </div>
-  </body>
+    }
+    if (document.readyState === 'complete') {
+      scheduleGtag();
+    } else {
+      window.addEventListener('load', scheduleGtag);
+    }
+    ['pointerdown', 'touchstart', 'scroll'].forEach(function(ev){
+      window.addEventListener(ev, loadGtag, { once: true, passive: true });
+    });  </script>
+  <style>
+    :root { --base:#081220; --acc:#0284C7; --acc-light:#38BDF8; --gold:#F59E0B; --green:#22C55E; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--base); color:#F1F5F9; font-family:'Public Sans',system-ui,sans-serif; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    main { max-width:560px; text-align:center; }
+    .brand { font-weight:800; font-size:22px; letter-spacing:-.02em; margin-bottom:32px; }
+    .brand span { color:var(--gold); }
+    .code { font-family:'JetBrains Mono',monospace; color:var(--acc-light); font-size:14px; margin-bottom:12px; }
+    h1 { font-size:clamp(28px,5vw,40px); line-height:1.15; letter-spacing:-.03em; margin-bottom:14px; }
+    p { color:#CBD5E1; line-height:1.6; margin-bottom:28px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:15px 28px; border-radius:8px; font-weight:700; text-decoration:none; background:var(--green); color:#062B14; margin-bottom:28px; }
+    .links { display:flex; gap:10px 20px; flex-wrap:wrap; justify-content:center; }
+    .links a { color:#E2E8F0; font-size:15px; border-bottom:1px solid var(--acc-light); text-decoration:none; padding-bottom:2px; }
+    .links a:hover { color:#FFFFFF; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">ProLav<span>.</span>Litoral</div>
+    <div class="code">ERRO 404</div>
+    <h1>Esta página não existe, mas seu atendimento sim.</h1>
+    <p>Fale agora com a equipe da Baixada Santista. Atendimento no mesmo dia, preço fechado antes de iniciar e 1 ano de garantia por escrito.</p>
+    <a href="#" class="btn" data-track="whatsapp" data-service="home">Chamar no WhatsApp</a>
+    <nav class="links">
+      <a href="/conserto-lava-e-seca">Conserto &amp; Reparo</a>
+      <a href="/instalacao-lava-e-seca">Instalação Técnica</a>
+      <a href="/higienizacao-lava-e-seca">Higienização Profunda</a>
+      <a href="/">Início</a>
+    </nav>
+  </main>
+  <script src="/conversions.js" defer></script>
+</body>
 </html>
