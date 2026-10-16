@@ -1,4 +1,4 @@
-﻿/**
+/**
  * conversions.js â€” Motor de Rastreamento Google Ads & OCT (Offline Conversion Tracking)
  * ProLav Litoral AssistÃªncia TÃ©cnica Â· PadrÃ£o AgÃªncia 2026
  *
@@ -13,10 +13,12 @@
 (function () {
   'use strict';
 
-  // 1. IDENTIFICADORES OFICIAIS (Briefing Oficial ProLav Litoral)
+  // 1. IDENTIFICADORES OFICIAIS (Briefing Oficial ProLav Litoral & Expansão ABC Paulista)
   const GOOGLE_ADS_ID = 'AW-18439155671';
   const GOOGLE_ADS_WHATSAPP_CONVERSION = 'AW-18439155671/2_aeCKmL2fEcENffvNhE';
   const GOOGLE_ADS_PHONE_CONVERSION = 'AW-18439155671/ENbgCNuQ2fEcENffvNhE';
+  const WHATSAPP_NUMBER_LITORAL = '5513992095947';
+  const WHATSAPP_NUMBER_ABC = '5511925213483';
   const WHATSAPP_NUMBER = '5513992095947';
   const EMPRESA_PREFIX = 'PL';
   const ENDPOINT_REGISTRO_CLIQUE = 'https://hrobytuiaxoflsezgpce.supabase.co/functions/v1/registrar-clique-ads';
@@ -24,13 +26,28 @@
   // Alfabeto Base32 de 31 caracteres sem ambiguidade (sem 0/O e sem 1/I/L)
   const CHARSET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
 
+  function isAbcRoute() {
+    try {
+      const p = (window.location.pathname || '').toLowerCase();
+      return p.includes('-abc') || p.includes('/abc');
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function getActiveWhatsAppNumber() {
+    return isAbcRoute() ? WHATSAPP_NUMBER_ABC : WHATSAPP_NUMBER_LITORAL;
+  }
+
   // Mensagens contextuais com a frase âncora mandatória da agência e CRM Iara:
   // "vim pelo site, gostaria de um atendimento"
   const MESSAGES = {
     home: 'Olá! Vim pelo site, gostaria de um atendimento para Lava e Seca na Baixada Santista.',
     conserto: 'Olá! Vim pelo site, gostaria de um atendimento para conserto de Lava e Seca.',
     instalacao: 'Olá! Vim pelo site, gostaria de um atendimento para instalação de Lava e Seca.',
-    higienizacao: 'Olá! Vim pelo site, gostaria de um atendimento para higienização de Lava e Seca.'
+    higienizacao: 'Olá! Vim pelo site, gostaria de um atendimento para higienização de Lava e Seca.',
+    lavadora_abc: 'Olá! Vim pelo site, gostaria de um atendimento para conserto de Máquina de Lavar no ABC Paulista.',
+    lava_e_seca_abc: 'Olá! Vim pelo site, gostaria de um atendimento para conserto de Lava e Seca no ABC Paulista.'
   };
 
   // 2. UTILITÃRIOS DE COOKIES & STORAGE (RetenÃ§Ã£o de 30 dias)
@@ -112,19 +129,21 @@
     return newProtocol;
   }
 
-  // 5. DETECTAR ROTA PADRÃƒO
+  // 5. DETECTAR ROTA PADRÃO
   function detectDefaultService() {
     const path = window.location.pathname.toLowerCase();
+    if (path.includes('lavadora-abc')) return 'lavadora_abc';
+    if (path.includes('lava-e-seca-abc')) return 'lava_e_seca_abc';
     if (path.includes('conserto') || path.includes('reparo')) return 'conserto';
     if (path.includes('instalacao')) return 'instalacao';
     if (path.includes('higienizacao') || path.includes('limpeza')) return 'higienizacao';
-    return 'home';
+    return isAbcRoute() ? 'lava_e_seca_abc' : 'home';
   }
 
-  // 6. MANIPULADOR DE CLIQUE DO WHATSAPP (SÃ­ncrono + sendBeacon)
+  // 6. MANIPULADOR DE CLIQUE DO WHATSAPP (Síncrono + sendBeacon)
   function handleWhatsAppClick(serviceType, customText) {
     const sType = serviceType || detectDefaultService();
-    const baseText = customText || MESSAGES[sType] || MESSAGES.home;
+    const baseText = customText || MESSAGES[sType] || (isAbcRoute() ? MESSAGES.lava_e_seca_abc : MESSAGES.home);
     const protocol = getOrGenerateProtocol();
 
     const fullMessage = protocol ? `${baseText} ${protocol}` : baseText;
@@ -179,7 +198,8 @@
       }
     }
 
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMessage)}`;
+    const targetWaNumber = getActiveWhatsAppNumber();
+    const waUrl = `https://wa.me/${targetWaNumber}?text=${encodeURIComponent(fullMessage)}`;
     window.open(waUrl, '_blank', 'noopener,noreferrer');
   }
 
@@ -223,7 +243,8 @@
         const deviceSelected =
           document.querySelector('input[name="device"]:checked')?.value || 'Lava e Seca';
 
-        const msg = `Olá! Vim pelo site, gostaria de um atendimento. Meu nome é ${name}, moro em ${neighborhood} e preciso de atendimento para ${deviceSelected}.`;
+        const regionNotice = isAbcRoute() ? ' no ABC Paulista' : '';
+        const msg = `Olá! Vim pelo site, gostaria de um atendimento${regionNotice}. Meu nome é ${name}, moro em ${neighborhood} e preciso de atendimento para ${deviceSelected}.`;
         handleWhatsAppClick(detectDefaultService(), msg);
       });
     }
@@ -247,11 +268,14 @@
     GOOGLE_ADS_ID,
     GOOGLE_ADS_WHATSAPP_CONVERSION,
     GOOGLE_ADS_PHONE_CONVERSION,
-    WHATSAPP_NUMBER,
+    WHATSAPP_NUMBER: getActiveWhatsAppNumber(),
+    WHATSAPP_NUMBER_LITORAL,
+    WHATSAPP_NUMBER_ABC,
     EMPRESA_PREFIX,
     ENDPOINT_REGISTRO_CLIQUE,
     handleWhatsAppClick,
     handlePhoneClick,
-    getOrGenerateProtocol
+    getOrGenerateProtocol,
+    isAbcRoute
   };
 })();
